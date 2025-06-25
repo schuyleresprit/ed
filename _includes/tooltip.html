@@ -1,0 +1,8 @@
+<span class="tooltip-wrapper {% if include.type %}tooltip-{{ include.type }}{% endif %}" data-tooltip-trigger="click" {% if include.type %}data-type="{{ include.type }}"{% endif %}>
+  <span class="tooltip-trigger">{{ include.text }}</span>
+  <span class="tooltip-content">
+    <a href="{{ include.url }}" target="_blank" style="color:#0af;">
+      {{ include.title | default: include.url | replace: 'https://', '' }}
+    </a>
+  </span>
+</span>
