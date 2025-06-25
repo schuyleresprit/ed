@@ -7,3 +7,72 @@ layout: default
   <p class="byline">by {{ page.author }}</p>
   {{ content }}
 </article>
+
+<!--TOOLTIP STYLING -->
+<style>
+.tooltip-wrapper {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.tooltip-trigger {
+  border-bottom: 1px dotted #999;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip-wrapper:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+.tooltip-wrapper[data-type="place"] .tooltip-content {
+  background: #1d1b3a; /* color places */
+  color: #dff9fb;
+}
+
+.tooltip-wrapper[data-type="person"] .tooltip-content {
+  background: #b9dfbc; /* color for people */
+  color: #f9ebea;
+}
+
+</style>
+
+
+<!--TOOLTIP FUNCTIONALITY -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const wrappers = document.querySelectorAll('.tooltip-wrapper[data-tooltip-trigger="click"]');
+
+  wrappers.forEach(wrapper => {
+    const content = wrapper.querySelector('.tooltip-content');
+
+    wrapper.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const visible = content.style.visibility === 'visible';
+      content.style.visibility = visible ? 'hidden' : 'visible';
+      content.style.opacity = visible ? '0' : '1';
+    });
+
+    document.addEventListener('click', function () {
+      content.style.visibility = 'hidden';
+      content.style.opacity = '0';
+    });
+  });
+});
+</script>
